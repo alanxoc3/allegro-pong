@@ -31,7 +31,7 @@ void inputP2(Paddle * const pad);
 
 void moveBall(Ball * const ball);
 
-bool doesBallHitPad(const Paddle * const pad, const Ball * const ball);
+int doesBallHitPad(const Paddle * const pad, const Ball * const ball);
 
 // Changes the ball's direction by how much the paddle influenced it.
 void padDirToBall(const Paddle * const pad, Ball * const ball);
