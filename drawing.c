@@ -8,8 +8,13 @@ void drawScore(const int xpos, const int score) {
 
 void drawBoard() {
 	const float x = SCR_W / 2;
+	const float y = SCR_H / 2;
 	const ALLEGRO_COLOR col = al_map_rgb(256, 100, 0);
-	al_draw_line(x, 0, x, SCR_H, col, 5);
+	const float rad = SCR_H / 8;
+
+	al_draw_line(x, 0, x, y-rad, col, 5);
+	al_draw_line(x, y+rad, x, SCR_H, col, 5);
+	al_draw_circle(x, y, rad, col, 5);
 }
 
 void drawBall(const Ball * const ball) {
