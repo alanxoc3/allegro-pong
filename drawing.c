@@ -26,10 +26,6 @@ void fonts_init() {
 	}
 }
 
-void drawScore(const int xpos, const int score) {
-	al_draw_text(font, GRAY, xpos, 400, ALLEGRO_ALIGN_CENTRE, "24");
-}
-
 void drawBoard() {
 	const float x = SCR_W / 2;
 	const float y = SCR_H / 2;
@@ -57,4 +53,16 @@ void drawPaddle(const Paddle * const pad) {
 	x2 = x1 + PADDLE_WIDTH;
 
 	al_draw_filled_rectangle(x1, pad->ypos, x2, pad->ypos + PADDLE_HEIGHT, GRAY);
+}
+
+void drawScore(enum Side side, const int score) {
+	int xpos = SCR_W / 2; //side == LEFT ? 0 : SCR_W;
+
+	if (side == LEFT) {
+		xpos -= 10; // Buffer for the line
+		al_draw_text(font, GRAY, xpos, 0, ALLEGRO_ALIGN_RIGHT, "24");
+	} else {
+		xpos += 10; // Buffer for the line
+		al_draw_text(font, GRAY, xpos, 0, ALLEGRO_ALIGN_LEFT, "24");
+	}
 }
