@@ -18,6 +18,11 @@ void audio_init() {
       exit(-1);
    }
 
+	if (!al_reserve_samples(1)){
+		fprintf(stderr, "failed to reserve samples!\n");
+		exit(-1);
+	}
+
 	sample = al_load_sample(SONG);
 	if (!sample) {
 		printf( "Audio clip sample not loaded!\n" ); 
