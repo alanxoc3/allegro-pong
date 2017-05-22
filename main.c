@@ -32,6 +32,11 @@ int main(){
 	left_pad.side = LEFT;
 	left_pad.ypos = 0;
 
+	Ball ball;
+	ball.xpos = 100;
+	ball.ypos = 100;
+	ball.radius = 10;
+
 	al_install_keyboard();
 	ALLEGRO_EVENT_QUEUE *queue = al_create_event_queue();
 	al_register_event_source(queue, al_get_keyboard_event_source());
@@ -51,6 +56,7 @@ int main(){
 
 		drawBoard();
 		drawPaddle(&left_pad);
+		drawBall(&ball);
 
 		al_flip_display();
 
