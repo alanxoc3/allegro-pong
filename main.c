@@ -31,11 +31,13 @@ int main(){
 	Paddle left_pad;
 	left_pad.side = LEFT;
 	left_pad.ypos = 0;
+	left_pad.yspd = 0;
 
 	al_install_keyboard();
 	ALLEGRO_EVENT_QUEUE *queue = al_create_event_queue();
 	al_register_event_source(queue, al_get_keyboard_event_source());
 
+	
 	while(1){
 		al_clear_to_color(al_map_rgb(0,0,0));
 
@@ -43,10 +45,26 @@ int main(){
 		bool a = al_get_next_event(queue, &event);
 		if(a && event.type == ALLEGRO_EVENT_KEY_DOWN){
 			if(event.keyboard.keycode == ALLEGRO_KEY_UP){
-				left_pad.ypos += 5;
+				left_pad.yspd = -10;
 			} else if(event.keyboard.keycode == ALLEGRO_KEY_DOWN){
-				left_pad.ypos -= 5;
+				left_pad.yspd = 10;
 			}
+		} else if(a && event.type == ALLEGRO_EVENT_KEY_UP){
+			if((event.keyboard.keycode == ALLEGRO_KEY_UP && left_pad.yspd < 0) || (event.keyboard.keycode == ALLEGRO_KEY_DOWN && left_pad.yspd > 0)){	
+				left_pad.yspd = 0;
+				ALLEGRO_KEYBOARD_STATE key_state;
+				al_get_keyboard_state(&key_state);
+				if(al_key_down(&key_state, ALLEGRO_KEY_UP)){
+					left_pad.yspd = -10;	
+				} else if(al_key_down(&key_state, ALLEGRO_KEY_DOWN)){
+					left_pad.yspd = 10;
+				}
+
+			}
+		}
+
+		if(left_pad.yspd != 0){
+			left_pad.ypos += left_pad.yspd;
 		}
 
 		drawBoard();
