@@ -18,6 +18,9 @@ void allegro_init() {
 		exit(-1);
 	}
 
+	// In drawing.c, exits if there was an error.
+	fonts_init();
+
 	display = al_create_display(SCR_W, SCR_H);
 	if(!display) {
 		fprintf(stderr, "failed to create display!\n");
@@ -57,6 +60,7 @@ int main(){
 		drawBoard();
 		drawPaddle(&left_pad);
 		drawBall(&ball);
+		drawScore(300, 4);
 
 		al_flip_display();
 

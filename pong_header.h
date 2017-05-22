@@ -38,6 +38,10 @@ int doesBallHitPad(const Paddle * const pad, const Ball * const ball);
 // Changes the ball's direction by how much the paddle influenced it.
 void padDirToBall(const Paddle * const pad, Ball * const ball);
 
+// -------- DRAWING METHODS -----------
+
+void fonts_init();
+
 // Y position will be hard coded here.
 void drawScore(const int xpos, const int score);
 
