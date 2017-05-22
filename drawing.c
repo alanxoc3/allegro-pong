@@ -60,11 +60,14 @@ void drawPaddle(const Paddle * const pad) {
 void drawScore(enum Side side, const int score) {
 	int xpos = SCR_W / 2; //side == LEFT ? 0 : SCR_W;
 
+	char str[20]; // more than big enough string buffer.
+	sprintf(str, "%d", score);
+
 	if (side == LEFT) {
 		xpos -= 10; // Buffer for the line
-		al_draw_text(font, GRAY, xpos, 0, ALLEGRO_ALIGN_RIGHT, "24");
+		al_draw_text(font, GRAY, xpos, 0, ALLEGRO_ALIGN_RIGHT, str);
 	} else {
 		xpos += 10; // Buffer for the line
-		al_draw_text(font, GRAY, xpos, 0, ALLEGRO_ALIGN_LEFT, "24");
+		al_draw_text(font, GRAY, xpos, 0, ALLEGRO_ALIGN_LEFT, str);
 	}
 }
