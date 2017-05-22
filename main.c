@@ -38,7 +38,6 @@ int main(){
 	ball.ypos = 100;
 	ball.radius = 10;
 
-	al_install_keyboard();
 	ALLEGRO_EVENT_QUEUE *queue = al_create_event_queue();
 	al_register_event_source(queue, al_get_keyboard_event_source());
 
@@ -68,8 +67,14 @@ int main(){
 			}
 		}
 
+		int PADDLE_HEIGHT = 80;
 		if(left_pad.yspd != 0){
 			left_pad.ypos += left_pad.yspd;
+			if(left_pad.ypos < 0){
+				left_pad.yspd = 0;
+			} else if(left_pad.ypos > SCR_H - PADDLE_HEIGHT){
+				left_pad.ypos = SCR_H - PADDLE_HEIGHT;
+			}
 		}
 
 		drawBoard();
