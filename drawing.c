@@ -43,18 +43,16 @@ void drawBall(const Ball * const ball) {
 
 void drawPaddle(const Paddle * const pad) {
 	int x1 = 0, x2 = 0;
-	const int paddle_width = 10;
-	const int paddle_height = 80;
 
 	if(pad->side == LEFT){
 		x1 = 0;
 	} else {
-		x1 = SCR_W - paddle_width;
+		x1 = SCR_W - PADDLE_WIDTH;
 	}
 
-	x2 = x1 + paddle_width;
+	x2 = x1 + PADDLE_WIDTH;
 
-	al_draw_filled_rectangle(x1, pad->ypos, x2, pad->ypos + paddle_height, GRAY);
+	al_draw_filled_rectangle(x1, pad->ypos, x2, pad->ypos + PADDLE_HEIGHT, GRAY);
 }
 
 void drawScore(enum Side side, const int score) {

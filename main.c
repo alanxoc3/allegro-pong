@@ -32,11 +32,11 @@ void allegro_init() {
 
 void updatePaddlesForEvent(const ALLEGRO_EVENT * const event, Paddle *left_pad){
 
-		// right side
-		
+		// right side		
 		int UP_KEY = ALLEGRO_KEY_UP;
 		int DOWN_KEY = ALLEGRO_KEY_DOWN;
 
+		// if left side
 		if(left_pad->side == LEFT){
 			UP_KEY = ALLEGRO_KEY_W;
 			DOWN_KEY = ALLEGRO_KEY_S;
@@ -44,9 +44,9 @@ void updatePaddlesForEvent(const ALLEGRO_EVENT * const event, Paddle *left_pad){
 
 		if( event->type == ALLEGRO_EVENT_KEY_DOWN){
 			if(event->keyboard.keycode == UP_KEY){
-				left_pad->yspd = -10;
+				left_pad->yspd = -PADDLE_SPEED;
 			} else if(event->keyboard.keycode == DOWN_KEY){
-				left_pad->yspd = 10;
+				left_pad->yspd = PADDLE_SPEED;
 			}
 		} else if(event->type == ALLEGRO_EVENT_KEY_UP){
 			if((event->keyboard.keycode == UP_KEY && left_pad->yspd < 0) || (event->keyboard.keycode == DOWN_KEY && left_pad->yspd > 0)){	
@@ -54,9 +54,9 @@ void updatePaddlesForEvent(const ALLEGRO_EVENT * const event, Paddle *left_pad){
 				ALLEGRO_KEYBOARD_STATE key_state;
 				al_get_keyboard_state(&key_state);
 				if(al_key_down(&key_state, UP_KEY)){
-					left_pad->yspd = -10;	
+					left_pad->yspd = -PADDLE_SPEED;	
 				} else if(al_key_down(&key_state,DOWN_KEY)){
-					left_pad->yspd = 10;
+					left_pad->yspd = PADDLE_SPEED;
 				}
 
 			}
@@ -64,8 +64,6 @@ void updatePaddlesForEvent(const ALLEGRO_EVENT * const event, Paddle *left_pad){
 }
 
 void updatePaddle(Paddle * const left_pad){
-
-		int PADDLE_HEIGHT = 80;
 
 		if(left_pad->yspd != 0){
 			left_pad->ypos += left_pad->yspd;
@@ -106,7 +104,7 @@ int main(){
 	Paddle left_pad, right_pad;
 	left_pad.side = LEFT;
 	right_pad.side = RIGHT;
-	left_pad.ypos = right_pad.ypos = 0;
+	left_pad.ypos = right_pad.ypos = SCR_H / 2 - PADDLE_HEIGHT / 2;
 	left_pad.yspd = right_pad.yspd = 0;
 
 	Ball ball;
