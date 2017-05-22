@@ -27,8 +27,8 @@ void drawBall(const Ball * const ball) {
 
 void drawPaddle(const Paddle * const pad) {
 	int x1 = 0, x2 = 0;
-	const int paddle_width = 15;
-	const int paddle_height = 40;
+	const int paddle_width = 10;
+	const int paddle_height = 80;
 	ALLEGRO_COLOR white = al_map_rgb(255, 255, 255);
 	if(pad->side == LEFT){
 		x1 = 0;

@@ -27,17 +27,33 @@ void allegro_init() {
 
 int main(){
 	allegro_init();
-	long counter = 0;
 	
+	Paddle left_pad;
+	left_pad.side = LEFT;
+	left_pad.ypos = 0;
+
+	al_install_keyboard();
+	ALLEGRO_EVENT_QUEUE *queue = al_create_event_queue();
+	al_register_event_source(queue, al_get_keyboard_event_source());
+
 	while(1){
 		al_clear_to_color(al_map_rgb(0,0,0));
 
+		ALLEGRO_EVENT event;
+		bool a = al_get_next_event(queue, &event);
+		if(a && event.type == ALLEGRO_EVENT_KEY_DOWN){
+			if(event.keyboard.keycode == ALLEGRO_KEY_UP){
+				left_pad.ypos += 5;
+			} else if(event.keyboard.keycode == ALLEGRO_KEY_DOWN){
+				left_pad.ypos -= 5;
+			}
+		}
+
 		drawBoard();
+		drawPaddle(&left_pad);
 
 		al_flip_display();
 
-		printf("%ld\n", counter);
-		counter++;
 		al_rest( 1.0 / FPS);
 	}
 
