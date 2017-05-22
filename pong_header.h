@@ -7,6 +7,10 @@
 #define SCR_W 640
 #define SCR_H 480
 
+#define PADDLE_HEIGHT 90
+#define PADDLE_WIDTH 10
+#define PADDLE_SPEED 10
+
 enum Side {LEFT, RIGHT};
 
 typedef struct {
