@@ -5,17 +5,28 @@
 #include <time.h>
 #include "pong_header.h"
 
-int main(){
-	ALLEGRO_DISPLAY *display = NULL;
+static ALLEGRO_DISPLAY *display = NULL;
 
-	al_init();
+void allegro_init() {
+	if(!al_init()) {
+		fprintf(stderr, "failed to initialize allegro!\n");
+		exit(-1);
+	}
+ 
+	if(!al_install_keyboard()) {
+		fprintf(stderr, "failed to initialize the keyboard!\n");
+		exit(-1);
+	}
 
 	display = al_create_display(SCR_W, SCR_H);
 	if(!display) {
 		fprintf(stderr, "failed to create display!\n");
-		return -1;
+		exit(-1);
 	}
+}
 
+int main(){
+	allegro_init();
 	long counter = 0;
 	
 	while(1){
