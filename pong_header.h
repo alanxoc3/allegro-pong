@@ -12,7 +12,6 @@ typedef struct {
 	float yspd;
 	int score;
 	int height;
-
 } Paddle;
 
 typedef struct {

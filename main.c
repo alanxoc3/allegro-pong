@@ -19,10 +19,18 @@ int main(){
 	long counter = 0;
 	
 	while(1){
+		al_clear_to_color(al_map_rgb(0,0,0));
+
+		drawBoard();
+
+		al_flip_display();
+
 		printf("%ld\n", counter);
 		counter++;
 		al_rest( 1.0 / FPS);
 	}
+
+	al_destroy_display(display);
 
 	return 0;
 }
