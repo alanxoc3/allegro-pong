@@ -1,5 +1,6 @@
 #include "pong_header.h"
 #include <allegro5/allegro.h>
+#include <allegro5/allegro_primitives.h>
 
 void drawScore(const int xpos, const int score) {
 
