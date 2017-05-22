@@ -53,7 +53,7 @@ void drawPaddle(const Paddle * const pad) {
 	if(pad->side == LEFT){
 		x1 = 0;
 	} else {
-		x2 = SCR_W - paddle_width;
+		x1 = SCR_W - paddle_width;
 	}
 
 	x2 = x1 + paddle_width;
