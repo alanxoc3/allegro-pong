@@ -86,7 +86,8 @@ int main(){
 		drawBoard();
 		drawPaddle(&left_pad);
 		drawBall(&ball);
-		drawScore(300, 4);
+		drawScore(LEFT, 4);
+		drawScore(RIGHT, 4);
 
 		al_flip_display();
 

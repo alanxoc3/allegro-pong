@@ -43,7 +43,7 @@ void padDirToBall(const Paddle * const pad, Ball * const ball);
 void fonts_init();
 
 // Y position will be hard coded here.
-void drawScore(const int xpos, const int score);
+void drawScore(enum Side side, const int score);
 
 // Draws a sick looking arena type thing.
 void drawBoard();
