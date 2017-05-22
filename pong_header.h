@@ -2,10 +2,10 @@
 #define _PONG_HEADER_H
 
 #define PONG_VERSION "0.1"
-const int FPS = 30;
 
-const int SCR_W = 640;
-const int SCR_H = 480;
+#define FPS 30
+#define SCR_W 640
+#define SCR_H 480
 
 enum side {LEFT, RIGHT};
 
