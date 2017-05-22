@@ -7,11 +7,14 @@
 #define SCR_W 640
 #define SCR_H 480
 
+enum side {LEFT, RIGHT};
+
 typedef struct {
 	float ypos;
 	float yspd;
 	int score;
 	int height;
+	Side side;
 } Paddle;
 
 typedef struct {
