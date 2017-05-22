@@ -7,11 +7,14 @@ const int FPS = 30;
 const int SCR_W = 640;
 const int SCR_H = 480;
 
+enum side {LEFT, RIGHT};
+
 typedef struct {
 	float ypos;
 	float yspd;
 	int score;
 	int height;
+	Side side;
 
 } Paddle;
 
