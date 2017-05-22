@@ -38,7 +38,7 @@ int doesBallHitPad(const Paddle * const pad, const Ball * const ball);
 // Changes the ball's direction by how much the paddle influenced it.
 void padDirToBall(const Paddle * const pad, Ball * const ball);
 
-// -------- DRAWING METHODS -----------
+// -------- DRAWING FUNCTIONS -----------
 
 void fonts_init();
 
@@ -50,5 +50,10 @@ void drawBoard();
 
 void drawBall(const Ball * const ball);
 void drawPaddle(const Paddle * const pad);
+
+// ---------- MUSIC FUNCTIONS -------------
+void audio_init();
+void play_music();
+void audio_destroy();
 
 #endif // _PONG_HEADER_H
