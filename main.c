@@ -26,6 +26,8 @@ void allegro_init() {
 		fprintf(stderr, "failed to create display!\n");
 		exit(-1);
 	}
+
+	audio_init();
 }
 
 int main(){
@@ -44,6 +46,7 @@ int main(){
 	ALLEGRO_EVENT_QUEUE *queue = al_create_event_queue();
 	al_register_event_source(queue, al_get_keyboard_event_source());
 
+	play_music();
 	
 	while(1){
 		al_clear_to_color(al_map_rgb(0,0,0));
@@ -91,6 +94,7 @@ int main(){
 	}
 
 	al_destroy_display(display);
+	audio_destroy();
 
 	return 0;
 }
