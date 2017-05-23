@@ -100,13 +100,11 @@ int main(int argc, const char ** argv) {
 			updatePaddlesForEvent(&event, &right_pad);
 		}
 
-<<<<<<< HEAD
-=======
 		if (hasComputer) computerPaddle(&left_pad, &ball);
 
 		updatePaddle(&left_pad);
 		updatePaddle(&right_pad);
->>>>>>> 5f82ad14baabf45da6d6da8b88ec64894a278d37
+		
 		moveBall(&ball);
 		updatePaddles(&left_pad, &right_pad);
 		updateBallPaddleCollisions(&ball, &left_pad, &right_pad);

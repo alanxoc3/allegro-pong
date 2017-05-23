@@ -47,7 +47,6 @@ void updatePaddle(Paddle * const left_pad){
 		}
 }
 
-<<<<<<< HEAD
 void updatePaddles(Paddle * const  left_pad, Paddle * const right_pad){
 	updatePaddle(left_pad);
 	updatePaddle(right_pad);
@@ -67,9 +66,6 @@ void resetBall(Ball * const ball){
 }
 
 void updateBallWallCollisions(Ball * const ball, Scores * const scores){
-=======
-void moveBall(Ball * const ball) {
->>>>>>> 5f82ad14baabf45da6d6da8b88ec64894a278d37
 	if (ball->ypos < 0 + ball->radius) {
 		ball->yspd = -ball->yspd;
 	} else if (ball->ypos > SCR_H - ball->radius) {
@@ -85,8 +81,6 @@ void moveBall(Ball * const ball) {
 	}
 
 }
-
-<<<<<<< HEAD
 
 void updateBallPaddleCollision(Ball * const ball, Paddle * const pad, enum Side side){
 
@@ -141,7 +135,6 @@ void updateBallPaddleCollisions(Ball * const ball, Paddle * const lp, Paddle * c
 }
 
 
-=======
 // Needs the ball, so it can make cool predictions.
 void computerPaddle(Paddle * const pad, Ball * const ball) {
 	// The buffer is the area the paddle can stop at.
@@ -180,4 +173,3 @@ void computerPaddle(Paddle * const pad, Ball * const ball) {
 	}
 }
 
->>>>>>> 5f82ad14baabf45da6d6da8b88ec64894a278d37
