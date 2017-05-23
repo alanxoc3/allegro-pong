@@ -1,6 +1,8 @@
 #ifndef _PONG_HEADER_H
 #define _PONG_HEADER_H
 
+#include <allegro5/allegro.h>
+
 #define PONG_VERSION "0.1"
 
 #define FPS 30
@@ -59,5 +61,11 @@ void drawPaddle(const Paddle * const pad);
 void audio_init();
 void play_music();
 void audio_destroy();
+
+// ---------- GAME LOGIC -----------
+void updatePaddlesForEvent(const ALLEGRO_EVENT * const event, Paddle *left_pad);
+void updatePaddle(Paddle * const left_pad);
+void updatePaddles(Paddle * const  left_pad, Paddle * const right_pad);
+void moveBall(Ball * const ball);
 
 #endif // _PONG_HEADER_H

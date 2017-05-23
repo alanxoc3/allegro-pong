@@ -3,7 +3,7 @@
 FLAGS=-lallegro -lallegro_main -lallegro_color -lallegro_primitives\
 -lallegro_font -lallegro_ttf -lallegro_acodec -lallegro_audio
 
-pong: main.c drawing.o music.o
+pong: main.c drawing.o music.o game_logic.o
 	$(CC) -Wall -pedantic -std=c99 -o pong $^ $(FLAGS)
 
 drawing.o: pong_header.h drawing.c
