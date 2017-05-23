@@ -68,4 +68,10 @@ void updatePaddle(Paddle * const left_pad);
 void moveBall(Ball * const ball);
 void computerPaddle(Paddle * const pad, Ball * const ball);
 
+// ---------- ARGUMENT PARSING -----------
+typedef struct {
+	int multiplayer;
+	char *theme; // prob enough for any theme.
+} Arguments;
+
 #endif // _PONG_HEADER_H
