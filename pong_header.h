@@ -74,9 +74,18 @@ void audio_destroy();
 // ---------- GAME LOGIC -----------
 void updatePaddlesForEvent(const ALLEGRO_EVENT * const event, Paddle *left_pad);
 void updatePaddle(Paddle * const left_pad);
-void updatePaddles(Paddle * const  left_pad, Paddle * const right_pad);
 void moveBall(Ball * const ball);
+<<<<<<< HEAD
 void updateBallPaddleCollisions(Ball * const ball, Paddle * const lp, Paddle * const rp);
 void updateBallWallCollisions(Ball * const ball, Scores * const scores);
+=======
+void computerPaddle(Paddle * const pad, Ball * const ball);
+
+// ---------- ARGUMENT PARSING -----------
+typedef struct {
+	int multiplayer;
+	char *theme; // prob enough for any theme.
+} Arguments;
+>>>>>>> 5f82ad14baabf45da6d6da8b88ec64894a278d37
 
 #endif // _PONG_HEADER_H

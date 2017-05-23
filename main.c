@@ -3,8 +3,10 @@
 #include <stdio.h>
 #include <allegro5/allegro.h>
 #include <time.h>
+#include "argparse/argparse.h"
 #include "pong_header.h"
 
+// ----------- ALLEGRO STUFF ---------------
 static ALLEGRO_DISPLAY *display = NULL;
 
 void allegro_init() {
@@ -30,8 +32,41 @@ void allegro_init() {
 	audio_init();
 }
 
-int main(){
+// ----------- ARGUMENT STUFF ---------------
+static const char *const usage[] = {
+    "pong [options]",
+    NULL,
+};
+
+// Could return an error.
+int getArgs(int argc, const char ** argv, Arguments * args) {
+	args->multiplayer = 0;
+	args->theme = NULL;
+
+	struct argparse_option options[] = {
+		OPT_HELP(),
+		OPT_BOOLEAN('m', "multiplayer", &args->multiplayer, "replaces computer with player."),
+		OPT_STRING('t', "theme", &args->theme, "dark, retro, or light color theme."),
+		OPT_END(),
+	};
+
+	struct argparse argparse;
+	argparse_init(&argparse, options, usage, 0);
+	argparse_describe(&argparse, "\nA retro pong game made in c.", "");
+
+	argc = argparse_parse(&argparse, argc, argv);
+
+	return 0;
+}
+
+// ------------------ MAIN -----------------
+int main(int argc, const char ** argv) {
+	Arguments args;
+	getArgs(argc, argv, &args);
+
 	allegro_init();
+
+	int hasComputer = !args.multiplayer;
 	
 	int counter = 0;
 	Paddle left_pad, right_pad;
@@ -54,16 +89,24 @@ int main(){
 	al_register_event_source(queue, al_get_keyboard_event_source());
 
 	play_music();
-	
+
 	while(1){
 		al_clear_to_color(al_map_rgb(0,0,0));
 
 		ALLEGRO_EVENT event;
+
 		if(al_get_next_event(queue, &event)){
-			updatePaddlesForEvent(&event, &left_pad);
+			if (!hasComputer) updatePaddlesForEvent(&event, &left_pad);
 			updatePaddlesForEvent(&event, &right_pad);
 		}
 
+<<<<<<< HEAD
+=======
+		if (hasComputer) computerPaddle(&left_pad, &ball);
+
+		updatePaddle(&left_pad);
+		updatePaddle(&right_pad);
+>>>>>>> 5f82ad14baabf45da6d6da8b88ec64894a278d37
 		moveBall(&ball);
 		updatePaddles(&left_pad, &right_pad);
 		updateBallPaddleCollisions(&ball, &left_pad, &right_pad);

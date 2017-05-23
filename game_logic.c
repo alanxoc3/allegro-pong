@@ -1,4 +1,5 @@
 #include "pong_header.h"
+#include <stdio.h>
 
 void updatePaddlesForEvent(const ALLEGRO_EVENT * const event, Paddle *left_pad){
 
@@ -35,15 +36,18 @@ void updatePaddlesForEvent(const ALLEGRO_EVENT * const event, Paddle *left_pad){
 void updatePaddle(Paddle * const left_pad){
 
 		if(left_pad->yspd != 0){
+
 			left_pad->ypos += left_pad->yspd;
+
 			if(left_pad->ypos < 0){
-				left_pad->yspd = 0;
+				left_pad->ypos = 0;
 			} else if(left_pad->ypos > SCR_H - PADDLE_HEIGHT){
 				left_pad->ypos = SCR_H - PADDLE_HEIGHT;
 			}
 		}
 }
 
+<<<<<<< HEAD
 void updatePaddles(Paddle * const  left_pad, Paddle * const right_pad){
 	updatePaddle(left_pad);
 	updatePaddle(right_pad);
@@ -63,6 +67,9 @@ void resetBall(Ball * const ball){
 }
 
 void updateBallWallCollisions(Ball * const ball, Scores * const scores){
+=======
+void moveBall(Ball * const ball) {
+>>>>>>> 5f82ad14baabf45da6d6da8b88ec64894a278d37
 	if (ball->ypos < 0 + ball->radius) {
 		ball->yspd = -ball->yspd;
 	} else if (ball->ypos > SCR_H - ball->radius) {
@@ -79,6 +86,7 @@ void updateBallWallCollisions(Ball * const ball, Scores * const scores){
 
 }
 
+<<<<<<< HEAD
 
 void updateBallPaddleCollision(Ball * const ball, Paddle * const pad, enum Side side){
 
@@ -133,3 +141,43 @@ void updateBallPaddleCollisions(Ball * const ball, Paddle * const lp, Paddle * c
 }
 
 
+=======
+// Needs the ball, so it can make cool predictions.
+void computerPaddle(Paddle * const pad, Ball * const ball) {
+	// The buffer is the area the paddle can stop at.
+	const float mid = PADDLE_HEIGHT / 2;
+	const float third = PADDLE_HEIGHT / 3;
+	float pad_center = pad->ypos + mid;
+	const float dist_away_to_hit = 23;
+	const float mid_buffer = PADDLE_HEIGHT / 3;
+
+	float offset_mid = pad->ypos - SCR_H / 2;
+
+	// Only move to ball if the ball is on the computer's side.
+	if (ball->xpos < SCR_W / 2) {
+		// if ball is going down then go down
+		if (ball->xpos < dist_away_to_hit) {
+			pad->yspd = (ball->yspd > 0) ? -PADDLE_SPEED : PADDLE_SPEED;
+		} else if (ball->yspd > 0) {
+			if (pad_center - third < ball->ypos) {
+				pad->yspd = PADDLE_SPEED;
+			} else {
+				pad->yspd = 0;
+			}
+		} else {
+			if (pad_center + third > ball->ypos) {
+				pad->yspd = -PADDLE_SPEED;
+			} else {
+				pad->yspd = 0;
+			}
+
+		}
+	} else if (abs(offset_mid) > mid_buffer) {
+		if (offset_mid > 0) pad->yspd = -PADDLE_SPEED;
+		else pad->yspd = PADDLE_SPEED;
+	} else {
+		pad->yspd = 0;
+	}
+}
+
+>>>>>>> 5f82ad14baabf45da6d6da8b88ec64894a278d37
