@@ -43,9 +43,12 @@ int main(){
 	Ball ball;
 	ball.xpos = 100;
 	ball.ypos = 100;
-	ball.xspd = 80.0 / FPS;
-	ball.yspd = 80.0 / FPS;
+	ball.xspd = BALL_INIT_SPEED;
+	ball.yspd = BALL_INIT_SPEED;
 	ball.radius = 10;
+
+	Scores scores;
+	scores.l = scores.r = 0;
 
 	ALLEGRO_EVENT_QUEUE *queue = al_create_event_queue();
 	al_register_event_source(queue, al_get_keyboard_event_source());
@@ -61,15 +64,18 @@ int main(){
 			updatePaddlesForEvent(&event, &right_pad);
 		}
 
-		updatePaddles(&left_pad, &right_pad);
 		moveBall(&ball);
+		updatePaddles(&left_pad, &right_pad);
+		updateBallPaddleCollisions(&ball, &left_pad, &right_pad);
+		updateBallWallCollisions(&ball, &scores);
 
 		drawBoard();
 		drawPaddle(&left_pad);
 		drawPaddle(&right_pad);
 		drawBall(&ball);
-		drawScore(LEFT, counter / 15);
-		drawScore(RIGHT, counter / 30);
+
+		drawScore(LEFT, scores.l);
+		drawScore(RIGHT, scores.r);
 
 		al_flip_display();
 

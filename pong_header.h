@@ -2,6 +2,7 @@
 #define _PONG_HEADER_H
 
 #include <allegro5/allegro.h>
+#include <math.h>
 
 #define PONG_VERSION "0.1"
 
@@ -12,6 +13,9 @@
 #define PADDLE_HEIGHT 90
 #define PADDLE_WIDTH 10
 #define PADDLE_SPEED 10
+
+#define BALL_INIT_SPEED 80.0 / FPS
+#define BALL_SPEED sqrt(pow(BALL_INIT_SPEED, 2) * 2)
 
 enum Side {LEFT, RIGHT};
 
@@ -30,6 +34,11 @@ typedef struct {
 	float yspd;
 	float radius;
 } Ball;
+
+typedef struct {
+	int l;
+	int r;
+} Scores;
 
 void initP1(Paddle * const pad);
 void initP2(Paddle * const pad);
@@ -67,5 +76,7 @@ void updatePaddlesForEvent(const ALLEGRO_EVENT * const event, Paddle *left_pad);
 void updatePaddle(Paddle * const left_pad);
 void updatePaddles(Paddle * const  left_pad, Paddle * const right_pad);
 void moveBall(Ball * const ball);
+void updateBallPaddleCollisions(Ball * const ball, Paddle * const lp, Paddle * const rp);
+void updateBallWallCollisions(Ball * const ball, Scores * const scores);
 
 #endif // _PONG_HEADER_H

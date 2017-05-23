@@ -49,20 +49,87 @@ void updatePaddles(Paddle * const  left_pad, Paddle * const right_pad){
 	updatePaddle(right_pad);
 }
 
-void moveBall(Ball * const ball) {
+void moveBall(Ball * const ball) {	
+	ball->xpos += ball->xspd;
+	ball->ypos += ball->yspd;
+}
+
+void resetBall(Ball * const ball){
+	// reset ball
+	ball->xpos = 100;
+	ball -> ypos = 100;
+	ball -> yspd = BALL_INIT_SPEED;
+	ball -> xspd = BALL_INIT_SPEED;
+}
+
+void updateBallWallCollisions(Ball * const ball, Scores * const scores){
 	if (ball->ypos < 0 + ball->radius) {
 		ball->yspd = -ball->yspd;
 	} else if (ball->ypos > SCR_H - ball->radius) {
 		ball->yspd = -ball->yspd;
 	}
 
-	if (ball->xpos < 0 + ball->radius) {
-		ball->xspd = -ball->xspd;
-	} else if (ball->xpos > SCR_W - ball->radius) {
-		ball->xspd = -ball->xspd;
+	if (ball->xpos < 0 + ball->radius){
+		scores->r++;
+		resetBall(ball);
+	} else if(ball->xpos > SCR_W - ball->radius) {
+		scores->l++;
+		resetBall(ball);
 	}
 
-	ball->xpos += ball->xspd;
-	ball->ypos += ball->yspd;
 }
+
+
+void updateBallPaddleCollision(Ball * const ball, Paddle * const pad, enum Side side){
+
+	if(side == LEFT){
+		//printf("left\n");
+	} else {
+		//printf("right\n");
+	}
+	
+	bool x_touch = false;
+	bool heading = false;
+
+	if(side == LEFT){
+		x_touch = ball->xpos - ball->radius <= PADDLE_WIDTH;
+		heading = ball->xspd < 0;
+	} else {
+		x_touch = ball->xpos + ball->radius  >= (SCR_W - PADDLE_WIDTH);
+		heading = ball->xspd > 0;
+	}
+
+	bool y_touch = ball->ypos >= pad->ypos && ball->ypos <= (pad->ypos + PADDLE_HEIGHT);
+	if(heading && x_touch && y_touch){
+		printf("HIT PADDLE \n");
+
+		if(pad->yspd == 0){
+			ball->xspd *= -1;
+		} else {
+			// pad moving up, makes ball move downwards
+			// increase yspd, decrease xspd
+			ball -> yspd -= (1/8.0) * pad->yspd;
+			float dy = pow(ball->yspd, 2);
+			ball -> xspd = sqrt((BALL_SPEED*BALL_SPEED) - dy);
+			printf("ball speed: %f\n", BALL_SPEED);
+			printf("DY: %f\n", dy);
+			printf("x: %f\n", ball->xspd);
+			printf("y: %f\n", ball->yspd);
+		}
+
+		//ball->xspd = -ball->xspd;
+		//ball->yspd = -ball->yspd;
+
+		ball->xpos += 2 * ball->xspd;
+
+	}
+}
+
+// check if ball is touching paddle, and heading towards paddle
+// if so, update ball trajectory
+void updateBallPaddleCollisions(Ball * const ball, Paddle * const lp, Paddle * const rp){
+	updateBallPaddleCollision(ball, lp, LEFT);
+	updateBallPaddleCollision(ball, rp, RIGHT);
+}
+
 
