@@ -32,6 +32,8 @@ void allegro_init() {
 
 int main(){
 	allegro_init();
+
+	int hasComputer = true;
 	
 	int counter = 0;
 	Paddle left_pad, right_pad;
@@ -51,17 +53,21 @@ int main(){
 	al_register_event_source(queue, al_get_keyboard_event_source());
 
 	play_music();
-	
+
 	while(1){
 		al_clear_to_color(al_map_rgb(0,0,0));
 
 		ALLEGRO_EVENT event;
+
 		if(al_get_next_event(queue, &event)){
-			updatePaddlesForEvent(&event, &left_pad);
+			if (!hasComputer) updatePaddlesForEvent(&event, &left_pad);
 			updatePaddlesForEvent(&event, &right_pad);
 		}
 
-		updatePaddles(&left_pad, &right_pad);
+		if (hasComputer) computerPaddle(&left_pad, &ball);
+
+		updatePaddle(&left_pad);
+		updatePaddle(&right_pad);
 		moveBall(&ball);
 
 		drawBoard();

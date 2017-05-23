@@ -65,7 +65,7 @@ void audio_destroy();
 // ---------- GAME LOGIC -----------
 void updatePaddlesForEvent(const ALLEGRO_EVENT * const event, Paddle *left_pad);
 void updatePaddle(Paddle * const left_pad);
-void updatePaddles(Paddle * const  left_pad, Paddle * const right_pad);
 void moveBall(Ball * const ball);
+void computerPaddle(Paddle * const pad, Ball * const ball);
 
 #endif // _PONG_HEADER_H

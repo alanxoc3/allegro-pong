@@ -9,6 +9,9 @@ pong: main.c drawing.o music.o game_logic.o
 drawing.o: pong_header.h drawing.c
 	$(CC) -Wall -pedantic -std=c99 -c drawing.c
 
+game_logic.o: pong_header.h game_logic.c
+	$(CC) -Wall -pedantic -std=c99 -c game_logic.c
+
 music.o: pong_header.h music.c
 	$(CC) -Wall -pedantic -std=c99 -c music.c
 
