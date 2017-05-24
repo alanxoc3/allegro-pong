@@ -85,4 +85,6 @@ typedef struct {
 	char *theme; // prob enough for any theme.
 } Arguments;
 
+void updatePaddles(Paddle * const  left_pad, Paddle * const right_pad);
+
 #endif // _PONG_HEADER_H
