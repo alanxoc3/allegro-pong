@@ -87,6 +87,7 @@ int main(int argc, const char ** argv) {
 
 	ALLEGRO_EVENT_QUEUE *queue = al_create_event_queue();
 	al_register_event_source(queue, al_get_keyboard_event_source());
+	al_register_event_source(queue, al_get_display_event_source(display));
 
 	play_music();
 
@@ -96,8 +97,16 @@ int main(int argc, const char ** argv) {
 		ALLEGRO_EVENT event;
 
 		if(al_get_next_event(queue, &event)){
-			if (!hasComputer) updatePaddlesForEvent(&event, &left_pad);
+			if (!hasComputer) {
+				updatePaddlesForEvent(&event, &left_pad);
+			}
+			
 			updatePaddlesForEvent(&event, &right_pad);
+
+			 if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
+                                break;
+                        }
+
 		}
 
 		if (hasComputer) computerPaddle(&left_pad, &ball);
