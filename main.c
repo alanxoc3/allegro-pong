@@ -103,10 +103,9 @@ int main(int argc, const char ** argv) {
 			
 			updatePaddlesForEvent(&event, &right_pad);
 
-			 if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
-                                break;
-                        }
-
+			if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
+				break;
+			}
 		}
 
 		if (hasComputer) computerPaddle(&left_pad, &ball);

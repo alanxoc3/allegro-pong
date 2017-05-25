@@ -13,8 +13,8 @@
 #define PADDLE_HEIGHT 90
 #define PADDLE_WIDTH 10
 
-#define PADDLE_SPEED 200.0 / FPS
-#define BALL_SPEED 400.0 / FPS
+#define PADDLE_SPEED 150.0 / FPS
+#define BALL_SPEED 300.0 / FPS
 
 // WE NEED TAU/2!
 #ifndef M_PI
