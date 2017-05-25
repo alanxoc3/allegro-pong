@@ -47,7 +47,6 @@ int getArgs(int argc, const char ** argv, Arguments * args) {
 	struct argparse_option options[] = {
 		OPT_HELP(),
 		OPT_BOOLEAN('m', "multiplayer", &args->multiplayer, "replaces computer with player."),
-		OPT_STRING('t', "theme", &args->theme, "dark, retro, or light color theme."),
 		OPT_END(),
 	};
 
