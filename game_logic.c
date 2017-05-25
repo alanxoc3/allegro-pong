@@ -67,7 +67,7 @@ void resetBall(Ball * const ball){
 	float multiplier = rand() % 4;
 
 	// Add 15 degrees
-	float ang = (M_PI * randNum + 15.0 + 90 * multiplier) / 180.0 + 15.0;
+	float ang = (M_PI * randNum + 15.0 + 90.0 * multiplier) / 180.0;
 	ball->xspd = cos(ang) * BALL_SPEED;
 	ball->yspd = sin(ang) * BALL_SPEED;
 }
@@ -110,7 +110,7 @@ void updateBallPaddleCollision(Ball * const ball, Paddle * const pad, enum Side 
 
 	bool y_touch = ball->ypos >= pad->ypos && ball->ypos <= (pad->ypos + PADDLE_HEIGHT);
 	if(heading && x_touch && y_touch){
-		printf("HIT PADDLE \n");
+		//printf("HIT PADDLE \n");
 
 		if(pad->yspd == 0){
 			ball->xspd *= -1;
@@ -125,10 +125,10 @@ void updateBallPaddleCollision(Ball * const ball, Paddle * const pad, enum Side 
 			} else {
 				ball -> xspd = -fabs(ball -> xspd);
 			}
-			printf("ball speed: %f\n", BALL_SPEED);
-			printf("DY: %f\n", dy);
-			printf("x: %f\n", ball->xspd);
-			printf("y: %f\n", ball->yspd);
+			//printf("ball speed: %f\n", BALL_SPEED);
+			//printf("DY: %f\n", dy);
+			//printf("x: %f\n", ball->xspd);
+			//printf("y: %f\n", ball->yspd);
 		}
 
 		//ball->xspd = -ball->xspd;
