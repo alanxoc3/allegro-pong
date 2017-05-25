@@ -112,7 +112,12 @@ void updateBallPaddleCollision(Ball * const ball, Paddle * const pad, enum Side 
 			// increase yspd, decrease xspd
 			ball -> yspd -= (1/8.0) * pad->yspd;
 			float dy = pow(ball->yspd, 2);
-			ball -> xspd = sqrt((BALL_SPEED*BALL_SPEED) - dy);
+			ball -> xspd = sqrt(fabs((BALL_SPEED*BALL_SPEED) - dy));
+			if(side == LEFT){
+				ball -> xspd = fabs(ball -> xspd);
+			} else {
+				ball -> xspd = -fabs(ball -> xspd);
+			}
 			printf("ball speed: %f\n", BALL_SPEED);
 			printf("DY: %f\n", dy);
 			printf("x: %f\n", ball->xspd);
@@ -165,7 +170,7 @@ void computerPaddle(Paddle * const pad, Ball * const ball) {
 			}
 
 		}
-	} else if (abs(offset_mid) > mid_buffer) {
+	} else if (fabs(offset_mid) > mid_buffer) {
 		if (offset_mid > 0) pad->yspd = -PADDLE_SPEED;
 		else pad->yspd = PADDLE_SPEED;
 	} else {
