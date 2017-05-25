@@ -37,6 +37,9 @@ typedef struct {
 	float xspd;
 	float yspd;
 	float radius;
+
+	float speed;
+	int lifespan; // how long it has been open (how many frames).
 } Ball;
 
 typedef struct {

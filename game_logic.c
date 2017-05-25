@@ -55,19 +55,43 @@ void updatePaddles(Paddle * const  left_pad, Paddle * const right_pad){
 void moveBall(Ball * const ball) {	
 	ball->xpos += ball->xspd;
 	ball->ypos += ball->yspd;
+	if (ball->lifespan % (FPS * 5) == 0 && ball->lifespan > 0) {
+		ball->speed *= 1.1;
+
+		float ang = atan(ball->yspd / ball->xspd);
+		int xsgn = (ball->xspd > 0) ? 1 : 0;
+		int ysgn = (ball->yspd > 0) ? 1 : 0;
+
+
+		printf("SPEED: %.2f\n", ball->speed);
+
+		ball->xspd = ball->speed * cos(ang);
+		if ((ball->xspd > 0 && !xsgn) || (ball->xspd < 0 && xsgn))
+			ball->xspd *= -1;
+
+		ball->yspd = ball->speed * sin(ang);
+		if ((ball->yspd > 0 && !ysgn) || (ball->yspd < 0 && ysgn))
+			ball->yspd *= -1;
+	}
+
+	ball->lifespan++;
 }
 
 void resetBall(Ball * const ball){
 	// reset ball
+	ball->speed = BALL_SPEED;
+	printf("SPEED: %.2f\n", ball->speed);
+
 	ball->xpos = SCR_W / 2;
 	ball->ypos = SCR_H / 2;
+	ball->lifespan = 0;
 
 	// Degrees
-	float randNum    = rand() % 60;
-	float multiplier = rand() % 4;
+	float randNum  = (float) (rand() % 60);
+	int multiplier = rand() % 4;
 
 	// Add 15 degrees
-	float ang = (M_PI * randNum + 15.0 + 90.0 * multiplier) / 180.0;
+	float ang = M_PI * (randNum + 15.0 + 90.0 * multiplier) / 180.0;
 	ball->xspd = cos(ang) * BALL_SPEED;
 	ball->yspd = sin(ang) * BALL_SPEED;
 }
@@ -89,7 +113,7 @@ void updateBallWallCollisions(Ball * const ball, Scores * const scores){
 
 }
 
-void updateBallPaddleCollision(Ball * const ball, Paddle * const pad, enum Side side){
+void updateBallPaddleCollision(Ball * const ball, Paddle * const pad, enum Side side) {
 
 	if(side == LEFT){
 		//printf("left\n");
@@ -119,7 +143,7 @@ void updateBallPaddleCollision(Ball * const ball, Paddle * const pad, enum Side 
 			// increase yspd, decrease xspd
 			ball -> yspd -= (1/8.0) * pad->yspd;
 			float dy = pow(ball->yspd, 2);
-			ball -> xspd = sqrt(fabs((BALL_SPEED*BALL_SPEED) - dy));
+			ball -> xspd = sqrt(fabs((ball->speed * ball->speed) - dy));
 			if(side == LEFT){
 				ball -> xspd = fabs(ball -> xspd);
 			} else {
