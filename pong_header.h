@@ -14,8 +14,12 @@
 #define PADDLE_WIDTH 10
 #define PADDLE_SPEED 10
 
-#define BALL_INIT_SPEED 80.0 / FPS
-#define BALL_SPEED sqrt(pow(BALL_INIT_SPEED, 2) * 2)
+#define BALL_SPEED 90.0 / FPS
+
+// WE NEED TAU/2!
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif
 
 enum Side {LEFT, RIGHT};
 
@@ -86,5 +90,6 @@ typedef struct {
 } Arguments;
 
 void updatePaddles(Paddle * const  left_pad, Paddle * const right_pad);
+void resetBall(Ball * const ball);
 
 #endif // _PONG_HEADER_H

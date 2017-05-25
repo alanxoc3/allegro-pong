@@ -59,10 +59,17 @@ void moveBall(Ball * const ball) {
 
 void resetBall(Ball * const ball){
 	// reset ball
-	ball->xpos = 100;
-	ball -> ypos = 100;
-	ball -> yspd = BALL_INIT_SPEED;
-	ball -> xspd = BALL_INIT_SPEED;
+	ball->xpos = SCR_W / 2;
+	ball->ypos = SCR_H / 2;
+
+	// Degrees
+	float randNum    = rand() % 60;
+	float multiplier = rand() % 4;
+
+	// Add 15 degrees
+	float ang = (M_PI * randNum + 15.0 + 90 * multiplier) / 180.0 + 15.0;
+	ball->xspd = cos(ang) * BALL_SPEED;
+	ball->yspd = sin(ang) * BALL_SPEED;
 }
 
 void updateBallWallCollisions(Ball * const ball, Scores * const scores){

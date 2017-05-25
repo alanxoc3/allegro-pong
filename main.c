@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <allegro5/allegro.h>
 #include <time.h>
+
 #include "argparse/argparse.h"
 #include "pong_header.h"
 
@@ -66,6 +67,9 @@ int main(int argc, const char ** argv) {
 
 	allegro_init();
 
+	// Give us a nice good random seed.
+	srand(time(0));
+
 	int hasComputer = !args.multiplayer;
 	
 	int counter = 0;
@@ -76,11 +80,8 @@ int main(int argc, const char ** argv) {
 	left_pad.yspd = right_pad.yspd = 0;
 
 	Ball ball;
-	ball.xpos = 100;
-	ball.ypos = 100;
-	ball.xspd = BALL_INIT_SPEED;
-	ball.yspd = BALL_INIT_SPEED;
 	ball.radius = 10;
+	resetBall(&ball);
 
 	Scores scores;
 	scores.l = scores.r = 0;
