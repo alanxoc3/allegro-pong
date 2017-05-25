@@ -182,8 +182,8 @@ void computerPaddle(Paddle * const pad, Ball * const ball) {
 
 	float offset_mid = pad->ypos - SCR_H / 2;
 
-	// Only move to ball if the ball is on the computer's side.
-	if (ball->xpos < SCR_W / 2) {
+	// Only move to ball if the ball is going to computer.
+	if (ball->xspd < 0) {
 		// if ball is going down then go down
 		if (ball->xpos < dist_away_to_hit) {
 			pad->yspd = (ball->yspd > 0) ? -PADDLE_SPEED : PADDLE_SPEED;
